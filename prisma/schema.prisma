@@ -31,7 +31,7 @@ model opioid_prescription_rate {
 }
 
 model medicare_beneficiary {
-    medicate_beneficiary_id    Int    @id @default(autoincrement())
+    medicare_beneficiary_id    Int    @id @default(autoincrement())
     year                       String @opioid.VarChar(4)
     bene_geo_lvl               String @opioid.VarChar(8)
     bene_geo_desc              String @opioid.VarChar(128)
