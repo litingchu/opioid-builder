@@ -1,0 +1,70 @@
+datasource opioid {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model user {
+    user_id    Int      @id @default(autoincrement())
+    username   String   @unique @opioid.VarChar(128)
+    password   String   @unique @opioid.VarChar(128)
+    first_name String   @opioid.VarChar(128)
+    last_name  String   @opioid.VarChar(128)
+    reports    report[]
+}
+
+model opioid_prescription_rate {
+    opioid_prescription_rate_id    Int    @id @default(autoincrement())
+    year                           String @opioid.VarChar(4)
+    prscrbr_geo_lvl                String @opioid.VarChar(32)
+    prscrbr_geo_desc               String @opioid.VarChar(128)
+    tot_prscrbrs                   BigInt
+    tot_opioid_prscrbrs            BigInt
+    tot_opioid_clms                BigInt
+    tot_clms                       BigInt
+    opioid_prscrbng_rate           Float
+    opioid_prscrbng_rate_5y_chg    Float
+    opioid_prscrbng_rate_1y_chg    Float
+    la_tot_opioid_clms             Float
+    la_opioid_prscrbng_rate        Float
+    la_opioid_prscrbng_rate_5y_chg Float
+    la_opioid_prscrbng_rate_1y_chg Float
+}
+
+model medicare_beneficiary {
+    medicare_beneficiary_id    Int    @id @default(autoincrement())
+    year                       String @opioid.VarChar(4)
+    bene_geo_lvl               String @opioid.VarChar(8)
+    bene_geo_desc              String @opioid.VarChar(128)
+    bene_age_lvl               String @opioid.VarChar(4)
+    benes_wth_ptaptb_cnt       Int
+    benes_ffs_cnt              Int
+    benes_ma_cnt               Int
+    ma_prtcptn_rate            Float
+    bene_avg_age               Int
+    bene_feml_pct              Float
+    bene_male_pct              Float
+    bene_race_wht_pct          Float
+    bene_race_black_pct        Float
+    bene_race_hspnc_pct        Float
+    bene_race_othr_pct         Float
+    bene_dual_pct              Float
+    bene_avg_risk_scre         Float
+    tot_mdcr_pymt_amt          Float
+    tot_mdcr_stdzd_pymt_amt    Float
+    tot_mdcr_stdzd_ra_pymt_amt Float
+    tot_mdcr_pymt_pc           Float
+    tot_mdcr_stdzd_pymt_pc     Float
+    tot_mdcr_stdzd_ra_pymt_pc  Float
+}
+
+model report {
+    report_id          Int    @id @default(autoincrement())
+    report_name        String @opioid.VarChar(128)
+    user               user   @relation(fields: [user_id], references: [user_id])
+    user_id            Int
+    summary            String @opioid.Text
+    opioid_graph_url   String @opioid.VarChar(128)
+    medicare_graph_url String @opioid.VarChar(128)
+    state              String @opioid.VarChar(32)
+    age_level          String @opioid.VarChar(32)
+}
