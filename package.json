@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:migrate:init": "prisma migrate dev --name init",
+    "prisma:migrate:push": "prisma db push"
   },
   "dependencies": {
     "antd": "^4.23.1",
