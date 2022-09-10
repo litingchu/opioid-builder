@@ -1,6 +1,6 @@
 datasource opioid {
     provider = "mysql"
-    url      = 
+    url      = env("DATABASE_URL")
 }
 
 model user {
@@ -13,25 +13,24 @@ model user {
 
 model opioid_prescription_rate {
     year DateTime @db.Year
-    prscrbr_geo_lvl String @db.VarChar(128)
+    prscrbr_geo_lvl String @db.VarChar(32)
     prscrbr_geo_desc String @db.VarChar(128)
-    breakout_type
-    breakout
-    tot_prscrbrs
-    tot_opioid_prscrbrs
-    tot_opioid_clms	tot_clms
-    opioid_prscrbng_rate
-    opioid_prscrbng_rate_5y_chg	
-    opioid_prscrbng_rate_1y_chg	
-    la_tot_opioid_clms	
-    la_opioid_prscrbng_rate	
-    la_opioid_prscrbng_rate_5y_chg	
-    la_opioid_prscrbng_rate_1y_chg
+    tot_prscrbrs BigInt 
+    tot_opioid_prscrbrs BigInt
+    tot_opioid_clms	BigInt 
+    tot_clms BigInt
+    opioid_prscrbng_rate Double
+    opioid_prscrbng_rate_5y_chg	Double
+    opioid_prscrbng_rate_1y_chg	Double
+    la_tot_opioid_clms Double
+    la_opioid_prscrbng_rate	Double 
+    la_opioid_prscrbng_rate_5y_chg Double	
+    la_opioid_prscrbng_rate_1y_chg Double
 }
 
 model medicare_beneficiary {
     year DateTime @db.Year	
-    bene_geo_lvl String @db.VarChar(8)	
+    bene_geo_lvl String @db.VarChar(32)	
     bene_geo_desc String @db.VarChar(128)	
     bene_age_lvl String 		
     benes_wth_ptaptb_cnt	
