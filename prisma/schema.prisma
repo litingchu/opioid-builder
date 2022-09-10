@@ -13,10 +13,10 @@ model user {
 }
 
 model opioid_prescription_rate {
-    opioid_prescription_rate_id    Int      @id @default(autoincrement())
-    year                           DateTime
-    prscrbr_geo_lvl                String   @opioid.VarChar(32)
-    prscrbr_geo_desc               String   @opioid.VarChar(128)
+    opioid_prescription_rate_id    Int    @id @default(autoincrement())
+    year                           String @opioid.VarChar(4)
+    prscrbr_geo_lvl                String @opioid.VarChar(32)
+    prscrbr_geo_desc               String @opioid.VarChar(128)
     tot_prscrbrs                   BigInt
     tot_opioid_prscrbrs            BigInt
     tot_opioid_clms                BigInt
@@ -31,11 +31,11 @@ model opioid_prescription_rate {
 }
 
 model medicare_beneficiary {
-    medicate_beneficiary_id    Int      @id @default(autoincrement())
-    year                       DateTime
-    bene_geo_lvl               String   @opioid.VarChar(8)
-    bene_geo_desc              String   @opioid.VarChar(128)
-    bene_age_lvl               String   @opioid.VarChar(4)
+    medicate_beneficiary_id    Int    @id @default(autoincrement())
+    year                       String @opioid.VarChar(4)
+    bene_geo_lvl               String @opioid.VarChar(8)
+    bene_geo_desc              String @opioid.VarChar(128)
+    bene_age_lvl               String @opioid.VarChar(4)
     benes_wth_ptaptb_cnt       Int
     benes_ffs_cnt              Int
     benes_ma_cnt               Int
@@ -49,18 +49,18 @@ model medicare_beneficiary {
     bene_race_othr_pct         Float
     bene_dual_pct              Float
     bene_avg_risk_scre         Float
-    tot_mdcr_pymt_amt          Decimal  @opioid.Decimal(11, 2)
-    tot_mdcr_stdzd_pymt_amt    Decimal  @opioid.Decimal(11, 2)
-    tot_mdcr_stdzd_ra_pymt_amt Decimal  @opioid.Decimal(11, 2)
-    tot_mdcr_pymt_pc           Decimal  @opioid.Decimal(5, 2)
-    tot_mdcr_stdzd_pymt_pc     Decimal  @opioid.Decimal(5, 2)
-    tot_mdcr_stdzd_ra_pymt_pc  Decimal  @opioid.Decimal(5, 2)
+    tot_mdcr_pymt_amt          Float
+    tot_mdcr_stdzd_pymt_amt    Float
+    tot_mdcr_stdzd_ra_pymt_amt Float
+    tot_mdcr_pymt_pc           Float
+    tot_mdcr_stdzd_pymt_pc     Float
+    tot_mdcr_stdzd_ra_pymt_pc  Float
 }
 
 model report {
     report_id          Int    @id @default(autoincrement())
     report_name        String @opioid.VarChar(128)
-    user               user   @relation(fields: [report_id], references: [user_id])
+    user               user   @relation(fields: [user_id], references: [user_id])
     user_id            Int
     summary            String @opioid.Text
     opioid_graph_url   String @opioid.VarChar(128)
