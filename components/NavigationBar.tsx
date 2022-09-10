@@ -1,23 +1,18 @@
 import React from 'react';
-import { Col, Layout, Menu, Row } from 'antd';
+import { Layout, Menu } from 'antd';
 
 type NavigationBarProps = {
   children: React.ReactNode;
 };
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
+
 export const NavigationBar = ({ children }: NavigationBarProps) => {
   const menuItems = [{ label: 'Sign In', key: 'sign-in' }];
   return (
     <Layout className="layout" style={{ minHeight: '100vh' }}>
-      <Header>
-        <Row justify="end">
-          <Col span={24}>
-            <Menu mode="horizontal" items={menuItems} />
-          </Col>
-        </Row>
-      </Header>
-      <Content>{children}</Content>
+      <Menu mode="horizontal" items={menuItems} style={{ justifyContent: 'end' }} />
+      <Content style={{ padding: '50px' }}>{children}</Content>
     </Layout>
   );
 };

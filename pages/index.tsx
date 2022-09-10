@@ -1,10 +1,19 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import { Typography } from 'antd';
+import { ReportCard } from 'components/ReportCard';
+
+const { Paragraph } = Typography;
 
 const Home: NextPage = () => {
-  return <div>hello there</div>;
+  return (
+    <div>
+      <Paragraph>
+        This will be the home page. When we get to creating reports, this should have each report as
+        a card like below:
+      </Paragraph>
+      <ReportCard name="Fake Report" summary="This is a fake report" />
+    </div>
+  );
 };
 
 export default Home;

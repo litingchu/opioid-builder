@@ -5,7 +5,7 @@ import { NavigationBar } from 'components/NavigationBar';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <NavigationBar>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </NavigationBar>
   );
 }
