@@ -1,0 +1,67 @@
+datasource opioid {
+    provider = "mysql"
+    url      = 
+}
+
+model user {
+    user_id    Int    @id @default(autoincrement())
+    username String @db.VarChar(128)
+    password  String @db.VarChar(128)
+    first_name String @db.VarChar(128)
+    last_name String @db.VarChar(128)
+}
+
+model opioid_prescription_rate {
+    year DateTime @db.Year
+    prscrbr_geo_lvl String @db.VarChar(128)
+    prscrbr_geo_desc String @db.VarChar(128)
+    breakout_type
+    breakout
+    tot_prscrbrs
+    tot_opioid_prscrbrs
+    tot_opioid_clms	tot_clms
+    opioid_prscrbng_rate
+    opioid_prscrbng_rate_5y_chg	
+    opioid_prscrbng_rate_1y_chg	
+    la_tot_opioid_clms	
+    la_opioid_prscrbng_rate	
+    la_opioid_prscrbng_rate_5y_chg	
+    la_opioid_prscrbng_rate_1y_chg
+}
+
+model medicare_beneficiary {
+    year DateTime @db.Year	
+    bene_geo_lvl String @db.VarChar(8)	
+    bene_geo_desc String @db.VarChar(128)	
+    bene_age_lvl String 		
+    benes_wth_ptaptb_cnt	
+    benes_ffs_cnt	
+    benes_ma_cnt	
+    ma_prtcptn_rate	bene_avg_age	
+    bene_feml_pct	
+    bene_male_pct	
+    bene_race_wht_pct	
+    bene_race_black_pct	
+    bene_race_hspnc_pct	
+    bene_race_othr_pct	
+    bene_dual_pct	
+    bene_avg_risk_scre	
+    tot_mdcr_pymt_amt	
+    tot_mdcr_stdzd_pymt_amt	
+    tot_mdcr_stdzd_ra_pymt_amt	
+    tot_mdcr_pymt_pc	
+    tot_mdcr_stdzd_pymt_pc	
+    tot_mdcr_stdzd_ra_pymt_pc
+}
+
+model report {
+    report_id Int @id @default(autoincrement())
+    report_name String @db.VarChar(128)
+    user User @relation(fields:[user_id], references: [report_id])
+    user_id Int 
+    summary String @db.Text
+    opioid_graph_url String @db.VarChar(128)
+    medicare_graph_url String @db.VarChar(128)
+    state String @db.VarChar(32)
+    age_level String @db.VarChar(32)
+}
