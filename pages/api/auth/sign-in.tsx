@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../prisma/db';
+import { prisma } from 'db';
 import bcrypt from 'bcrypt';
 import { user as UserType } from '@prisma/client';
 

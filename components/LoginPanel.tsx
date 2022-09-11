@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, Form, Input, message } from 'antd';
-import { useRouter } from 'next/router';
+import { useAuth } from 'hooks/auth';
 
 type LoginPanelProps = {
   text: string;
@@ -8,7 +8,12 @@ type LoginPanelProps = {
 };
 
 export const LoginPanel = ({ text, isSignUp = false }: LoginPanelProps) => {
-  const router = useRouter();
+  const { user, login, logout } = useAuth();
+  console.log({ user, login, logout });
+
+  const handleOnFinish = () => {
+    login();
+  };
 
   const onFinishFailed = () => {
     message.error(`Failed to ${text}`);
@@ -20,7 +25,7 @@ export const LoginPanel = ({ text, isSignUp = false }: LoginPanelProps) => {
         name="login"
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 15 }}
-        onFinish={() => router.push('/')}
+        onFinish={handleOnFinish}
         onFinishFailed={onFinishFailed}
       >
         {isSignUp ? (
