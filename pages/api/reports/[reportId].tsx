@@ -18,6 +18,7 @@ export default async function reportsHandler(
         reportId: Number(reportId)
       }
     });
+    //TODO need to get GCP url
     res.status(200).json(report);
   }
 }
