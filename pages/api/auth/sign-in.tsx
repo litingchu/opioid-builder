@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../db';
+import { prisma } from '../../../prisma/db';
 import bcrypt from 'bcrypt';
 import { user as UserType } from '@prisma/client';
 
-type Data =
+type SignInResponseData =
   | {
       username: string;
       firstName: string;
@@ -12,7 +12,10 @@ type Data =
     }
   | { error: string };
 
-export default async function signInHandler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function signInHandler(
+  req: NextApiRequest,
+  res: NextApiResponse<SignInResponseData>
+) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
     const user: UserType | null = await prisma.user.findUnique({
@@ -34,5 +37,6 @@ export default async function signInHandler(req: NextApiRequest, res: NextApiRes
       res.status(403).json({ error: 'No user with matching username' });
     }
   } else {
+    res.status(400).json({ error: 'Endpoint only has post method' });
   }
 }

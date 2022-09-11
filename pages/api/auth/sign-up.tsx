@@ -2,13 +2,16 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../../db';
 import bcrypt from 'bcrypt';
 
-type Data =
+type SignUpResponseData =
   | {
       userId: number;
     }
   | { error: string };
 
-export default async function signUpHandler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function signUpHandler(
+  req: NextApiRequest,
+  res: NextApiResponse<SignUpResponseData>
+) {
   const { method } = req;
   if (method === 'POST') {
     const { username, password, firstName, lastName } = req.body;
