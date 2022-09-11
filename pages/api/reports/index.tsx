@@ -1,16 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '../../../db';
+import { report as ReportType } from '@prisma/client';
 
-type Data = {
-  name: string;
-};
-
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ReportType | ReportType[]>
+) {
   const { method } = req;
   if (method === 'GET') {
-    //TODO get all reports
+    const allReports = await prisma.report.findMany();
+    res.status(200).json(allReports);
   } else if (method === 'POST') {
-    //TODO create a new report
-  } else {
+    const { reportName, userId, summary, opioidGraphUrl, medicareGraphUrl, state, ageLevel } =
+      req.body;
+    const newReport = await prisma.report.create({
+      data: { reportName, userId, summary, opioidGraphUrl, medicareGraphUrl, state, ageLevel }
+    });
+    res.status(201).json(newReport);
   }
-  res.status(200).json({ name: 'John Doe' });
 }

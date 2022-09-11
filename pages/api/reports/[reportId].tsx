@@ -1,16 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '../../../db';
+import { report as ReportType } from '@prisma/client';
 
 type Data = {
   reportId: string | string[] | undefined;
 };
 
-export default function reportsHandler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function reportsHandler(
+  req: NextApiRequest,
+  res: NextApiResponse<ReportType | null>
+) {
   if (req.method === 'GET') {
-    //TODO get all reports
     const { query } = req;
     const { reportId } = query;
-    res.status(200).json({ reportId });
-  } else {
+    const report = await prisma.report.findUnique({
+      where: {
+        reportId: Number(reportId)
+      }
+    });
+    res.status(200).json(report);
   }
-  //res.status(200).json({ name: 'John Doe' });
 }
