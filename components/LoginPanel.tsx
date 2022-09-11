@@ -2,17 +2,16 @@ import React from 'react';
 import { Button, Card, Form, Input, message } from 'antd';
 import { useRouter } from 'next/router';
 
-interface Props {
+type LoginPanelProps = {
   text: string;
   isSignUp?: boolean;
-}
+};
 
-export const LoginPanel: React.FC<Props> = ({ text, isSignUp = false }) => {
+export const LoginPanel = ({ text, isSignUp = false }: LoginPanelProps) => {
   const router = useRouter();
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = () => {
     message.error(`Failed to ${text}`);
-    console.log('Failed:', errorInfo);
   };
 
   return (

@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
 import { LoginPanel } from 'components/LoginPanel';
+import { Col, Row } from 'antd';
 
 const SignIn: NextPage = () => {
   return (
-    <div
+    <Row
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -11,8 +12,10 @@ const SignIn: NextPage = () => {
         height: '100vh'
       }}
     >
-      <LoginPanel text="Sign In" />
-    </div>
+      <Col>
+        <LoginPanel text="Sign In" />
+      </Col>
+    </Row>
   );
 };
 
