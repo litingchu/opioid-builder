@@ -3,6 +3,10 @@ import { Button, Col, Input, Select, Row, Typography } from 'antd';
 import type { NextPage } from 'next';
 import { AGE_LEVELS, STATES, FULL_WIDTH } from 'constants.js';
 import { DefaultOptionType } from 'antd/lib/select';
+import {
+  useMedicareBeneficiaryByStateAndAgeLevel,
+  useOpioidPrescriptionRateByState
+} from 'hooks/query';
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -23,6 +27,10 @@ const CreateReport: NextPage = () => {
   const [selectedAgeLevel, setSelectedAgeLevel] = useState<string | null>(null);
   const [summary, setSummary] = useState<string>('');
 
+  const { isLoading: medicareIsLoading, data: medicareData } =
+    useMedicareBeneficiaryByStateAndAgeLevel(selectedState, selectedAgeLevel);
+  const { isLoading: opioidIsLoading, data: opioidData } =
+    useOpioidPrescriptionRateByState(selectedState);
   const handleOnStateChange = (state: string) => {
     setSelectedState(state);
   };
@@ -37,7 +45,7 @@ const CreateReport: NextPage = () => {
 
   // TODO This will need to change to call the actual API call to get the data
   // A loading indicator should be used here while the data is fetching.
-  const handleStartBuildingClick = () => {
+  const handleStartBuildingClick = async () => {
     setData('data here');
   };
 
