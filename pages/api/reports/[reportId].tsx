@@ -2,10 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../../db';
 import { report as ReportType } from '@prisma/client';
 
-type Data = {
-  reportId: string | string[] | undefined;
-};
-
 export default async function reportsHandler(
   req: NextApiRequest,
   res: NextApiResponse<ReportType | null>
